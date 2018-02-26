@@ -1,5 +1,6 @@
 <?php $this->layout('layouts/layout'); ?>
 <div class="container">
+    <?php $this->insert('partials/feedback') ?>
     <table id="calendar" class="d-inline-flex p-2">
         <caption><?php echo $meses[$month]." ".$year?></caption>
         <tr>

@@ -145,6 +145,11 @@ class Validation
 
     public function valDate($dates)
     {
+        $weekDay =date("w",strtotime($dates["month"].'/'.$dates["day"].'/2018')) ;
+        if($weekDay==6 || $weekDay==0){
+            Sesion::add("feedback_negative", "Lo siento, no atendemos en Sabados o Domingos");
+            return false;
+        }
         if (!$dates["day"]<32 && !$dates["day"]>0){
             if (!preg_match('/[1-9]/', $dates['day'])) {
                 Sesion::add("feedback_negative", "El dia tiene que ser valido");
@@ -171,7 +176,7 @@ class Validation
         $query = $conn->prepare($ssql);
         $query->execute();
         $find = $query->rowCount();
-        if($find = 0){
+        if($find == 0){
             return true;
         }else{
             Sesion::add("feedback_negative", "Ya tenia cita a esa hora");
@@ -185,7 +190,7 @@ class Validation
     {
 
         if ($this->hourExist($dates)) {
-
+            $conn = Database::getInstance()->getDatabase();
             $ssql = 'SELECT U.id FROM users U, reservations R WHERE U.id=R.user_id AND R.month=' . $dates['month'] . ' AND R.day=' . $dates['day'] . ' AND R.hour=' . $dates['hour'] . ';';
             $query = $conn->prepare($ssql);
             $query->execute();

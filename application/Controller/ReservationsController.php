@@ -64,27 +64,27 @@ class ReservationsController extends Controller
         }
     }
 
-    public function cite()//**arreglar validaciones**
+    public function cite()
     {
         $val = new Validation();
         if ($val->valDate($_POST)){
                 if (isset($_POST['hour'])) {
-                        $time['hour'] = $_POST['hour'];
+                        //$time['hour'] = $_POST['hour'];
                         if ($usersFree =$val->comproveHours($_POST)) {
                             if (Reservation::create($usersFree, $_POST)) {
                                 echo $this->view->render('reservations/doit', ['message' => 'Su cita ha sido guardada']);
                             }
                         } else {
-                            echo $this->view->render('reservations/hours', [
+                            echo $this->view->render('reservations/hours'/*, [
                                 'month' => $_POST['month'],
                                 'day' => $_POST['day']
-                            ]);
+                            ]*/);
                         }
                 } else {
-                    echo $this->view->render('reservations/hours', [
+                    echo $this->view->render('reservations/hours'/*, [
                         'month' => $_POST['month'],
                         'day' => $_POST['day']
-                    ]);
+                    ]*/);
                 }
         }else{
             $this->reservation();

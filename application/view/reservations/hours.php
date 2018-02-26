@@ -13,8 +13,8 @@
                 <option value="13">13:00</option>
                 <option value="14">14:00</option>
             </select>
-            <input type="text" class="d-none" name="day" value="<?= $day ?>"/>
-            <input type="text" class="d-none" name="month" value="<?= $month ?>"/>
+            <input type="text" class="d-none" name="day" value="<?= $_POST['day'] ?>"/>
+            <input type="text" class="d-none" name="month" value="<?= $_POST['month'] ?>"/>
             <input type="submit" class="btn btn-info" value="Solicitar">
         </form>
 </div>
