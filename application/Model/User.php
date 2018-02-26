@@ -69,6 +69,15 @@ class User
         return $section;
     }
 
+    public static function desasignedSection($date)
+    {
+        $conn = Database::getInstance()->getDatabase();
+        $ssql2 = 'UPDATE section SET asigned=0 WHERE id=:id;';
+        $query2 = $conn->prepare($ssql2);
+        $params=[':id' => Sesion::get('user_section')];
+        $query2->execute($params);
+    }
+
     public static function login($dates)//**cambiar, simplificar**
     {
        $val = new Validation();

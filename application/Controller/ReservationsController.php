@@ -69,25 +69,34 @@ class ReservationsController extends Controller
         $val = new Validation();
         if ($val->valDate($_POST)){
                 if (isset($_POST['hour'])) {
-                        //$time['hour'] = $_POST['hour'];
                         if ($usersFree =$val->comproveHours($_POST)) {
                             if (Reservation::create($usersFree, $_POST)) {
                                 echo $this->view->render('reservations/doit', ['message' => 'Su cita ha sido guardada']);
                             }
                         } else {
-                            echo $this->view->render('reservations/hours'/*, [
-                                'month' => $_POST['month'],
-                                'day' => $_POST['day']
-                            ]*/);
+                            echo $this->view->render('reservations/hours');
                         }
                 } else {
-                    echo $this->view->render('reservations/hours'/*, [
-                        'month' => $_POST['month'],
-                        'day' => $_POST['day']
-                    ]*/);
+                    echo $this->view->render('reservations/hours');
                 }
         }else{
             $this->reservation();
         }
+    }
+
+    public function destroy()
+    {
+        $val = new Validation();
+
+        if ($val->valId($_POST['reservation_id'])){
+            if (Database::destroy('reservations', 'id',$_POST['reservation_id'])){
+                echo $this->view->render('reservations/doit', ['message'=>'Cita borrada']);
+            }else{
+                $this->see();
+            }
+        }else{
+            $this->see();
+        }
+
     }
 }

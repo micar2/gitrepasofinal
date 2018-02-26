@@ -10,6 +10,10 @@ use \Mini\Libs\Sesion; ?>
                 <p class="card-text">a las: <?= $reservation->hour ?>:00</p>
                 <p class="card-text">sección: <?= $reservation->section ?></p>
                 <p class="card-text">le atiende:<?= $reservation->name ?></p>
+                <form action="<?= URL ?>reservations/destroy" method="POST">
+                    <input type="text" class="d-none" name="reservation_id" value="<?= $reservation->id ?>"/>
+                    <input type="submit" class="btn btn-danger" value="Borrar">
+                </form>
             </div>
         </div>
     <?php   }?>

@@ -71,6 +71,18 @@ class Database
         return $customers;
     }
 
+    public static function destroy($table, $type, $date)
+    {
+        $conn = Database::getInstance()->getDatabase();
+        $ssql = 'DELETE FROM '.$table.' WHERE '.$type.'='.$date.';';
+        $query = $conn->prepare($ssql);
+        if($query->execute()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 
 
 }

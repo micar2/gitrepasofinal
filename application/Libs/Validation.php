@@ -142,6 +142,14 @@ class Validation
         return true;
     }
 
+    public  function valId($dates)
+    {
+        if (!preg_match('/[1-9]/', $dates)) {
+            Sesion::add("feedback_negative", "La cita tiene que ser valida");
+            return false;
+        }
+        return true;
+    }
 
     public function valDate($dates)
     {
@@ -186,6 +194,7 @@ class Validation
 
     }
 
+
     public  function comproveHours($dates)
     {
 
@@ -208,7 +217,6 @@ class Validation
             $ids = substr($ids, 0, -2);
 
             $ssql = 'SELECT id, name, section FROM users WHERE id NOT IN ( ' . $ids . ' );';
-            echo $ssql;
             $query = $conn->prepare($ssql);
             $query->execute();
             $query = $query->fetchAll();

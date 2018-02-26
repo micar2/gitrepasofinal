@@ -56,7 +56,7 @@ class Reservation
     public static function myReservations($idCustomer)
     {
         $conn = Database::getInstance()->getDatabase();
-        $ssql = 'SELECT U.name, U.section, R.day, R.month, R.hour FROM users U, customers C, reservations R WHERE U.id=R.user_id AND C.id=R.customer_id AND C.id='.$idCustomer.' ORDER BY R.month, R.day, R.hour;';
+        $ssql = 'SELECT R.id, U.name, U.section, R.day, R.month, R.hour FROM users U, customers C, reservations R WHERE U.id=R.user_id AND C.id=R.customer_id AND C.id='.$idCustomer.' ORDER BY R.month, R.day, R.hour;';
         $query = $conn->prepare($ssql);
         $query->execute();
         $query = $query->fetchAll();
@@ -71,4 +71,6 @@ class Reservation
         $query = $conn->prepare($ssql);
         $query->execute();
     }
+
+
 }
